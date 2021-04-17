@@ -4,13 +4,19 @@ import 'package:sahiplen/core/constants/error_constans.dart';
 import 'package:sahiplen/core/constants/router_constants.dart';
 
 class LoginViewModel extends BaseViewModel {
+  String? email, password;
+
   late bool obscure;
   late GlobalKey<FormState> formKey;
-  String? email, password;
-  bool saveAttempted = false;
+  late bool saveAttempted;
 
   @override
-  void init() {}
+  void init() {
+    formKey = GlobalKey<FormState>();
+    saveAttempted = false;
+    obscure = false;
+  }
+
   @override
   void setContext(BuildContext context) {
     this.context = context;
@@ -35,5 +41,10 @@ class LoginViewModel extends BaseViewModel {
     } finally {
       isLoadingSet = false;
     }
+  }
+
+  void obscureUpdate() {
+    obscure = !obscure;
+    setState();
   }
 }
