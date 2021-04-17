@@ -20,11 +20,15 @@ class AppRepository {
     }
   }
 
-  Future<bool> registerWithMail(String email, String password) async {
-    AppUser? result = await _firebaseAuthService!.registerWithMail(email, password);
-    if (result != null) {
-      appUser = result;
-      return true;
+  Future<bool> registerWithMail(AppUser user, String password) async {
+    var userDB = await _firebaseAuthService!.registerWithMail(user.email!, password);
+    if (userDB != null) {
+      user.userID = userDB.userID;
+      userDB = await _firebaseFirestoreService!.saveUserToDatabase(user);
+      if (userDB != null) {
+        appUser = userDB;
+        return true;
+      }
     }
     return false;
   }
@@ -58,8 +62,8 @@ class AppRepository {
 
   //////////////////////////validator///////////////////////////////////
 
-  String? displayNameCheck(String displayName) {
-    if (displayName.isEmpty) {
+  String? displayNameCheck(String? displayName) {
+    if (displayName == null) {
       return 'Lütfen Ad ve Soyad girin';
     } else if (!displayName.contains(' ')) {
       return 'Ad ve Soyadı boşluk ile ayırılmalı';

@@ -5,7 +5,6 @@ import 'package:sahiplen/core/constants/router_constants.dart';
 
 class LoginViewModel extends BaseViewModel {
   String? email, password;
-
   late bool obscure;
   late GlobalKey<FormState> formKey;
   late bool saveAttempted;

@@ -43,7 +43,7 @@ abstract class BaseViewModel extends ChangeNotifier {
   void showSnackBar(String message) async {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(message),
-      backgroundColor: Colors.green,
+      backgroundColor: Theme.of(context).primaryColor,
       behavior: SnackBarBehavior.floating,
     ));
   }

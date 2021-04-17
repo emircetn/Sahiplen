@@ -18,7 +18,10 @@ class LoginPage extends StatelessWidget {
         model.init();
       },
       onPageBuilder: (BuildContext context, LoginViewModel viewModel) {
-        return Scaffold(backgroundColor: context.theme.primaryColor, body: body(context, viewModel));
+        return Scaffold(
+          backgroundColor: context.theme.primaryColor,
+          body: body(context, viewModel),
+        );
       },
     );
   }
@@ -48,10 +51,19 @@ class LoginPage extends StatelessWidget {
   Padding helloTextField(BuildContext context) {
     return Padding(
       padding: context.paddingMediumHighTop,
-      child: Text(
-        'HOŞ GELDİN',
-        style: context.textTheme.headline4,
-        textAlign: TextAlign.center,
+      child: Column(
+        children: [
+          Text(
+            'SAHİPLEN\'E ',
+            style: context.textTheme.headline4!.copyWith(color: context.theme.primaryColorDark),
+            textAlign: TextAlign.center,
+          ),
+          Text(
+            'HOŞ GELDİN',
+            style: context.textTheme.headline6,
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }
@@ -84,6 +96,7 @@ class LoginPage extends StatelessWidget {
           ),
           SpecialButton(
             text: 'Giriş Yap',
+            isLoading: viewModel.isLoading,
             onPressed: () async => await viewModel.loginWithMail(),
           ),
           SpecialTextButton(
