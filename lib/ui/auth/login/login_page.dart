@@ -8,15 +8,16 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<LoginViewModel>(
-        viewModel: LoginViewModel(),
-        onModelReady: (model) {
-          model.setContext(context);
-          model.init();
-        },
-        onPageBuilder: (BuildContext context, LoginViewModel viewModel) {
-          return Scaffold(
-            body: Container(),
-          );
-        });
+      viewModel: LoginViewModel(),
+      onModelReady: (model) {
+        model.setContext(context);
+        model.init();
+      },
+      onPageBuilder: (BuildContext context, LoginViewModel viewModel) {
+        return Scaffold(
+          body: Container(),
+        );
+      },
+    );
   }
 }
