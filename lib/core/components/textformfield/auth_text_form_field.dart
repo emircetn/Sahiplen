@@ -4,7 +4,7 @@ import '../../extensions/app_extensions.dart';
 
 class AuthTextFormField extends StatelessWidget {
   final String labelText;
-  final Function(String)? validator;
+  final String? Function(String?)? validator;
   final Function(String?)? onSaved;
   final Function(String)? onChanged;
   final bool? saveAttempted;
@@ -20,9 +20,9 @@ class AuthTextFormField extends StatelessWidget {
   const AuthTextFormField({
     Key? key,
     required this.labelText,
-    this.validator,
-    this.onSaved,
-    this.saveAttempted,
+    required this.validator,
+    required this.onSaved,
+    this.saveAttempted = false,
     this.textInputAction = TextInputAction.next,
     this.keyboardType,
     this.obscureText = false,
@@ -36,25 +36,29 @@ class AuthTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      autovalidateMode: saveAttempted! ? AutovalidateMode.always : AutovalidateMode.disabled,
-      textInputAction: textInputAction,
-      keyboardType: keyboardType,
-      obscureText: obscureText!,
-      inputFormatters: inputFormatters,
-      decoration: InputDecoration(
-        prefix: prefix,
-        suffix: suffix,
-        labelText: labelText,
-        labelStyle: context.textTheme.subtitle2!.copyWith(color: Colors.black54),
-        contentPadding: context.paddingLowBottom,
-        suffixIcon: suffixIcon,
-        errorText: errorText,
+    return Padding(
+      padding: context.paddingNormal,
+      child: TextFormField(
+        autovalidateMode: saveAttempted! ? AutovalidateMode.always : AutovalidateMode.disabled,
+        textInputAction: textInputAction,
+        keyboardType: keyboardType,
+        obscureText: obscureText!,
+        inputFormatters: inputFormatters,
+        decoration: InputDecoration(
+          prefix: prefix,
+          suffix: suffix,
+          labelText: labelText,
+          labelStyle: context.textTheme.subtitle2!.copyWith(color: Colors.black54),
+          border: OutlineInputBorder(borderRadius: context.borderRadiusNormal),
+          isDense: true,
+          suffixIcon: suffixIcon,
+          errorText: errorText,
+        ),
+        onSaved: onSaved,
+        onChanged: onChanged,
+        validator: validator,
+        key: key,
       ),
-      onSaved: onSaved,
-      onChanged: onChanged,
-      validator: validator as String? Function(String?)?,
-      key: key,
     );
   }
 }

@@ -3,12 +3,12 @@ import '../../extensions/app_extensions.dart';
 
 class SpecialButton extends StatelessWidget {
   final bool? isLoading;
-  final String buttonText;
-  final VoidCallback? buttonOnPressed;
-  final Color? buttonColor;
-  final Color buttonTextColor;
+  final String text;
+  final VoidCallback? onPressed;
+  final Color? backgorundColor;
+  final Color textColor;
   final Color? borderColor;
-  final TextStyle? buttonTextStyle;
+  final TextStyle? textStyle;
   final Widget? buttonIcon;
   final bool border;
   final BorderRadius? borderRadius;
@@ -16,15 +16,15 @@ class SpecialButton extends StatelessWidget {
   @override
   const SpecialButton({
     Key? key,
-    required this.buttonText,
+    required this.text,
     this.isLoading = false,
-    required this.buttonOnPressed,
-    this.buttonTextColor = Colors.white,
-    this.buttonColor,
+    required this.onPressed,
+    this.textColor = Colors.white,
+    this.backgorundColor,
     this.buttonIcon,
     this.border = false,
     this.borderColor,
-    this.buttonTextStyle,
+    this.textStyle,
     this.borderRadius,
     this.height = 50,
   }) : super(key: key);
@@ -32,14 +32,14 @@ class SpecialButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: context.paddingLowVertical,
+      padding: context.paddingNormal,
       child: Container(
         height: height,
         width: context.width,
         child: ElevatedButton(
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(
-                buttonColor ?? context.theme.primaryColor,
+                backgorundColor ?? context.theme.primaryColor,
               ),
               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                 side: border && borderColor == null // borderColor geçilirse onun rengi , geçilmezse Theme.
@@ -50,7 +50,7 @@ class SpecialButton extends StatelessWidget {
                 borderRadius: borderRadius != null ? borderRadius! : context.borderRadiusNormal,
               ))),
           // disabledColor: context.theme.primaryColor.withOpacity(0.9),
-          onPressed: isLoading! ? null : buttonOnPressed,
+          onPressed: isLoading! ? null : onPressed,
           key: key,
           child: isLoading!
               ? Container(
@@ -71,10 +71,8 @@ class SpecialButton extends StatelessWidget {
                             width: 20,
                             child: buttonIcon,
                           ),
-                    Text(buttonText,
-                        style: buttonTextStyle == null
-                            ? context.textTheme.bodyText1!.copyWith(color: buttonTextColor)
-                            : buttonTextStyle!.copyWith(color: buttonTextColor)),
+                    Text(text,
+                        style: textStyle == null ? context.textTheme.bodyText1!.copyWith(color: textColor) : textStyle!.copyWith(color: textColor)),
                     Container()
                   ],
                 ),

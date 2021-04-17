@@ -28,7 +28,7 @@ class ThemeConstants {
       style: TextButton.styleFrom(primary: Color(0xFF138C32)),
     ),
     textTheme: TextTheme(
-      headline4: TextStyle(color: Color(0xff272833), fontFamily: 'Poppins', fontWeight: FontWeight.w800),
+      headline4: TextStyle(color: Colors.black87, fontFamily: 'Poppins', fontWeight: FontWeight.w800),
       headline6: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w700),
     ),
   );
