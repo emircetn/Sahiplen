@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sahiplen/common/model/app_user.dart';
 import 'package:sahiplen/core/base/modelview/base_view_model.dart';
 import 'package:sahiplen/core/constants/error_constans.dart';
+import 'package:sahiplen/core/constants/router_constants.dart';
 
 class RegisterViewModel extends BaseViewModel {
   String? email, password, displayName;
@@ -25,7 +26,7 @@ class RegisterViewModel extends BaseViewModel {
     setState();
   }
 
-  Future<bool> registerWithMail() async {
+  Future<void> registerWithMail() async {
     try {
       isLoadingSet = true;
 
@@ -33,14 +34,17 @@ class RegisterViewModel extends BaseViewModel {
         formKey.currentState!.save();
         try {
           var tempAppUser = AppUser(displayName: displayName!.trim(), email: email!.trim());
-          return await appRepository.registerWithMail(tempAppUser, password!);
+          var result = await appRepository.registerWithMail(tempAppUser, password!);
+          if (result) {
+            await navigationService.pushNamedAndRemoveUntil(RouteConstant.HOME_PAGE_ROUTE);
+          } else {
+            showSnackBar('Bir hata oluştu');
+          }
         } catch (e) {
           showSnackBar(AuthErrorConstants.instance.getAuthErrorText(e.toString()));
-          return false;
         }
       } else {
         saveAttempted = true;
-        return false;
       }
     } finally {
       isLoadingSet = false;

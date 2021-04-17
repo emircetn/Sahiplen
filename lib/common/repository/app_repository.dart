@@ -45,7 +45,7 @@ class AppRepository {
     return false;
   }
 
-  Future signOut() async {
+  Future<void> signOut() async {
     appUser = null;
     await _firebaseAuthService!.signOut();
   }

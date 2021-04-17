@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sahiplen/core/components/button/special_button.dart';
-import 'package:sahiplen/core/components/button/special_text_button.dart';
 import 'package:sahiplen/core/components/textformfield/auth_text_form_field.dart';
-import 'package:sahiplen/core/constants/router_constants.dart';
 import 'package:sahiplen/core/extensions/app_extensions.dart';
 import 'package:sahiplen/core/base/view/base_view.dart';
 import 'package:sahiplen/ui/auth/register/register_view_model.dart';

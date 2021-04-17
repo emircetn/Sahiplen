@@ -28,7 +28,7 @@ class LoginViewModel extends BaseViewModel {
         formKey.currentState!.save();
         var result = await appRepository.loginWithMail(email!.trim(), password!.trim());
         if (result) {
-          await navigationService.pushNamed(RouteConstant.HOME_PAGE_ROUTE);
+          await navigationService.pushNamedAndRemoveUntil(RouteConstant.HOME_PAGE_ROUTE);
         } else {
           showSnackBar('Bir hata oluştu');
         }

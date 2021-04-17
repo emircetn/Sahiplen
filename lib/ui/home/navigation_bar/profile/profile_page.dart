@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sahiplen/core/components/widgets/avatar/profile_avatar.dart';
 import 'package:sahiplen/core/components/widgets/item/profile_list_item.dart';
 import 'package:sahiplen/core/extensions/app_extensions.dart';
 import 'package:sahiplen/core/base/view/base_view.dart';
@@ -17,10 +18,13 @@ class ProfilePage extends StatelessWidget {
       },
       onPageBuilder: (BuildContext context, ProfileViewModel viewModel) {
         return Scaffold(
-          /*     appBar: AppBar(
-            title: Text('Profil'),
+          appBar: AppBar(
+            title: Text('Sahiplen', style: context.textTheme.headline6!.copyWith(color: context.theme.primaryColorDark)),
             centerTitle: true,
-          ), */
+            actions: [
+              IconButton(icon: Icon(Icons.exit_to_app), onPressed: () async => await viewModel.signOut()),
+            ],
+          ),
           body: SafeArea(
             child: Container(
               width: double.maxFinite,
@@ -41,10 +45,7 @@ class ProfilePage extends StatelessWidget {
     return Column(
       children: [
         SizedBox(height: 10.h),
-        CircleAvatar(
-          radius: 50.h,
-          child: Text(viewModel.appUser!.nameAndSurnameFirstCharacter),
-        ),
+        ProfileAvatar(appUser: viewModel.appUser!),
         SizedBox(height: 5.h),
         Text(
           viewModel.appUser!.displayName!.toUpperCase(),

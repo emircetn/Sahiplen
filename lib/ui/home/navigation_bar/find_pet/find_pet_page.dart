@@ -15,6 +15,10 @@ class FindPetPage extends StatelessWidget {
       },
       onPageBuilder: (BuildContext context, FindPetViewModel viewModel) {
         return Scaffold(
+          appBar: AppBar(
+            title: Text('Sahiplen', style: context.textTheme.headline6!.copyWith(color: context.theme.primaryColorDark)),
+            centerTitle: true,
+          ),
           body: Container(),
         );
       },

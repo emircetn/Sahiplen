@@ -18,13 +18,6 @@ class HomePage extends StatelessWidget {
       },
       onPageBuilder: (BuildContext context, HomeViewModel viewModel) {
         return Scaffold(
-          appBar: AppBar(
-            title: Text('Sahiplen', style: context.textTheme.headline6!.copyWith(color: context.theme.primaryColorDark)),
-            centerTitle: true,
-            actions: [
-              IconButton(icon: Icon(Icons.search), onPressed: () {}),
-            ],
-          ),
           body: body(viewModel),
           bottomNavigationBar: bottomNavigationBar(viewModel),
         );
