@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sahiplen/core/extensions/app_extensions.dart';
 import 'package:sahiplen/core/base/view/base_view.dart';
-import 'package:sahiplen/ui/auth/login/login_page.dart';
-import 'package:sahiplen/ui/auth/register/register_page.dart';
+import 'package:sahiplen/core/extensions/app_extensions.dart';
 
 import 'home_view_model.dart';
 import 'navigation_bar/find_pet/find_pet_page.dart';
@@ -20,6 +18,13 @@ class HomePage extends StatelessWidget {
       },
       onPageBuilder: (BuildContext context, HomeViewModel viewModel) {
         return Scaffold(
+          appBar: AppBar(
+            title: Text('Sahiplen', style: context.textTheme.headline6!.copyWith(color: context.theme.primaryColorDark)),
+            centerTitle: true,
+            actions: [
+              IconButton(icon: Icon(Icons.search), onPressed: () {}),
+            ],
+          ),
           body: body(viewModel),
           bottomNavigationBar: bottomNavigationBar(viewModel),
         );

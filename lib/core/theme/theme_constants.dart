@@ -18,9 +18,8 @@ class ThemeConstants {
     backgroundColor: Colors.grey[50],
     scaffoldBackgroundColor: Colors.grey[50],
     canvasColor: Colors.white,
-    appBarTheme: AppBarTheme(
-      brightness: Brightness.dark,
-    ),
+    appBarTheme:
+        AppBarTheme(brightness: Brightness.dark, backgroundColor: Colors.grey[50], elevation: 0, iconTheme: IconThemeData(color: Colors.deepPurple)),
     buttonTheme: ButtonThemeData(
       textTheme: ButtonTextTheme.primary,
     ),
