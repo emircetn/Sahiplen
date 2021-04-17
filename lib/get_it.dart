@@ -1,3 +1,5 @@
+import 'package:sahiplen/common/services/firebase_stroge_service.dart';
+
 import 'common/repository/app_repository.dart';
 
 import 'package:get_it/get_it.dart';
@@ -11,4 +13,5 @@ void getItSetup() async {
   getIt.registerLazySingleton(() => AppRepository());
   getIt.registerLazySingleton(() => FirebaseAuthService());
   getIt.registerLazySingleton(() => FirebaseFirestoreService());
+  getIt.registerLazySingleton(() => FirebaseStrogeService());
 }

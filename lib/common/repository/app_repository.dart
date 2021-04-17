@@ -1,17 +1,22 @@
+import 'dart:io';
+
 import 'package:sahiplen/common/model/app_user.dart';
 import 'package:sahiplen/common/services/firebase_auth_service.dart';
 import 'package:sahiplen/common/services/firebase_firestore_service.dart';
+import 'package:sahiplen/common/services/firebase_stroge_service.dart';
 import 'package:sahiplen/get_it.dart';
 
 class AppRepository {
-  final FirebaseAuthService? _firebaseAuthService = getIt<FirebaseAuthService>();
-  final FirebaseFirestoreService? _firebaseFirestoreService = getIt<FirebaseFirestoreService>();
+  final FirebaseAuthService _firebaseAuthService = getIt<FirebaseAuthService>();
+  final FirebaseFirestoreService _firebaseFirestoreService = getIt<FirebaseFirestoreService>();
+  final FirebaseStrogeService _firebaseStrogeService = getIt<FirebaseStrogeService>();
+
   AppUser? appUser;
 
   //////////////////////////////auth///////////////////////////////
 
   Future<void> currentUser() async {
-    var appUserFB = _firebaseAuthService!.getCurrentUser();
+    var appUserFB = _firebaseAuthService.getCurrentUser();
     if (appUserFB != null) {
       var appUserDB = await readUserFromDatabase(appUserFB.userID!);
       if (appUserDB != null) {
@@ -21,10 +26,10 @@ class AppRepository {
   }
 
   Future<bool> registerWithMail(AppUser user, String password) async {
-    var userDB = await _firebaseAuthService!.registerWithMail(user.email!, password);
+    var userDB = await _firebaseAuthService.registerWithMail(user.email!, password);
     if (userDB != null) {
       user.userID = userDB.userID;
-      userDB = await _firebaseFirestoreService!.saveUserToDatabase(user);
+      userDB = await _firebaseFirestoreService.saveUserToDatabase(user);
       if (userDB != null) {
         appUser = userDB;
         return true;
@@ -34,7 +39,7 @@ class AppRepository {
   }
 
   Future<bool> loginWithMail(String email, String password) async {
-    AppUser? result = await _firebaseAuthService!.loginWithMail(email, password);
+    AppUser? result = await _firebaseAuthService.loginWithMail(email, password);
     if (result != null) {
       result = await readUserFromDatabase(result.userID!);
     }
@@ -47,17 +52,27 @@ class AppRepository {
 
   Future<void> signOut() async {
     appUser = null;
-    await _firebaseAuthService!.signOut();
+    await _firebaseAuthService.signOut();
   }
 
   //////////////////////////////firestore///////////////////////////////
 
   Future<bool> saveUserToDatabase(AppUser appUser) async {
-    return await _firebaseFirestoreService!.saveUserToDatabase(appUser);
+    return await _firebaseFirestoreService.saveUserToDatabase(appUser);
   }
 
   Future<AppUser?> readUserFromDatabase(String userID) async {
-    return await _firebaseFirestoreService!.readUserFromDatabase(userID);
+    return await _firebaseFirestoreService.readUserFromDatabase(userID);
+  }
+
+  //////////////////////////stroge///////////////////////////////////
+
+  Future<String?> uploadProfilePhotoToDatabase(String userID, File photoFile) async {
+    return await _firebaseStrogeService.uploadProfilePhotoToDatabase(userID, photoFile);
+  }
+
+  Future<String?> uploadAdvertisementPhotoToDatabase(String advertisementID, File advertisementImage, int photoNumber) async {
+    return await _firebaseStrogeService.uploadAdvertisementPhotoToDatabase(advertisementID, advertisementImage, photoNumber);
   }
 
   //////////////////////////validator///////////////////////////////////
