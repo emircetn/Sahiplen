@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1045757975164",
+    "project_id": "sahiplen-1",
+    "storage_bucket": "sahiplen-1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1045757975164:android:64f11a8e39978a9d1bc7f9",
+        "android_client_info": {
+          "package_name": "com.sahiplen.sahiplen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1045757975164-28moje2d1hmto454rdkeg285ieo8vd5p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0m6fUGMqI0yDZQL7i0tbDYMfg7aDByPM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1045757975164-28moje2d1hmto454rdkeg285ieo8vd5p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

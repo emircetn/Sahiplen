@@ -1,0 +1,48 @@
+{
+   "baseView":{
+	"prefix": "baseView",
+	"body": [
+    "import 'package:flutter/material.dart';",
+    "import 'package:xxx/core/extensions/app_extensions.dart';",
+    "import '../modelview/register_model_view.dart';",
+    "import 'package:xxx/core/base/view/base_view.dart';",
+
+    "class $1Page extends StatelessWidget {" ,
+    " @override",
+    " Widget build(BuildContext context) {",
+    "   return BaseView<$1ViewModel>(",
+        "viewModel: $1ViewModel(),",
+        "onModelReady: (model) {",
+        "model.setContext(context);",
+        "model.init();",
+        "},",
+        "onPageBuilder: (BuildContext context, $1ViewModel viewModel) => Scaffold(",
+        "appBar: appBar(),",
+        "body: Container(),",
+        "),);",
+        "}",
+        "}"
+	]
+   } ,
+   
+   "baseModelView":{
+      "prefix": "baseModelView",
+      "body": [
+      "import 'package:flutter/material.dart';",
+      "import 'package:halisahavar/core/base/modelview/base_view_model.dart';",
+   
+      "class $1ViewModel extends BaseViewModel {",
+   
+      "@override",
+      " void init() {",
+      " }",
+   
+      " @override",
+      "  void setContext(BuildContext context) {",
+      "    this.context = context;",
+      "  }",
+   
+      "}"
+      ]
+   }
+}
