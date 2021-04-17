@@ -76,8 +76,8 @@ class AppRepository {
     }
   }
 
-  String? emailCheck(String email) {
-    if (email.isEmpty) {
+  String? emailCheck(String? email) {
+    if (email == null) {
       return 'Lütfen e-posta adresi gir';
     }
     if (RegExp(r'^(\S+@\S+\.\S+$)').hasMatch(email)) {
