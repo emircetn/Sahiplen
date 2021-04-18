@@ -12,7 +12,7 @@ class LocationSelectorViewModel extends BaseViewModel {
   int? pageState;
   bool? isLoadingLocation, isLoadingInitialize;
   String? cityName, districtName, quarterName;
-  late final Function(String)? onCallBack;
+  late final Function(String, String, String?)? onCallBack;
 
   LocationSelectorViewModel(this.onCallBack);
   @override
@@ -116,7 +116,7 @@ class LocationSelectorViewModel extends BaseViewModel {
 
   Future<void> buttonOnPressed() async {
     if ((cityName != null) && (districtName != null) && (quarterName != null || quarterList.isEmpty)) {
-      onCallBack!('$districtName, $cityName');
+      onCallBack!(districtName!, cityName!, quarterName);
       await navigationService.pop();
     } else {
       showToast('Lütfen gerekli kısımları doldur');

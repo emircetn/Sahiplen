@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sahiplen/core/constants/router_constants.dart';
@@ -8,6 +10,7 @@ import 'package:sahiplen/ui/home/home_page.dart';
 import 'package:sahiplen/ui/home/navigation_bar/profile/create_advertisement/create_advertisement_page.dart';
 import 'package:sahiplen/ui/home/navigation_bar/profile/create_advertisement/location_selector/location_selector_page.dart';
 import 'package:sahiplen/ui/home/navigation_bar/profile/edit_profile/edit_profile.dart';
+import 'package:sahiplen/ui/home/other/show_image_page.dart';
 
 class NavigationRoute {
   static NavigationRoute? _instace;
@@ -35,7 +38,13 @@ class NavigationRoute {
       case RouteConstant.CREATE_ADVERTISEMENT_PAGE_ROUTE:
         return CupertinoPageRoute(builder: (_) => CreateAdvertisementPage());
       case RouteConstant.LOCATION_SELECTOR_PAGE_ROUTE:
-        return CupertinoPageRoute(builder: (_) => LocationSelectorPage(onCallBack: arguments as Function(String)?));
+        return CupertinoPageRoute(builder: (_) => LocationSelectorPage(onCallBack: arguments as Function(String, String, String?)?));
+      case RouteConstant.SHOW_IMAGE_PAGE_ROUTE:
+        return CupertinoPageRoute(
+            fullscreenDialog: true,
+            builder: (_) => settings.arguments is String
+                ? ShowImagePage(networkImageUrl: settings.arguments as String)
+                : ShowImagePage(fileImage: settings.arguments as File));
       default:
         return CupertinoPageRoute(
           builder: (_) => Scaffold(

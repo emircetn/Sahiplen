@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sahiplen/core/base/view/base_view.dart';
 import 'package:sahiplen/core/components/textformfield/special_text_form_field.dart';
+import 'package:sahiplen/core/components/widgets/avatar/image_update_avatar.dart';
+import 'package:sahiplen/core/constants/router_constants.dart';
 import 'package:sahiplen/core/extensions/app_extensions.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'create_advertisement_view_model.dart';
 
 class CreateAdvertisementPage extends StatelessWidget {
@@ -32,28 +34,72 @@ class CreateAdvertisementPage extends StatelessWidget {
 
   SingleChildScrollView body(BuildContext context, CreateAdvertisementViewModel viewModel) {
     return SingleChildScrollView(
-      child: Form(
-        key: viewModel.formKey,
-        child: Column(
-          children: [
-            SpecialTextFormField(
-              labelText: 'İlan başlığı',
-              textInputAction: TextInputAction.newline,
-              maxLength: 50,
-              maxLines: 2,
-              validator: (header) {},
-              onSaved: (header) {},
-            ),
-            SpecialTextFormField(
-              labelText: 'İlan açıklaması',
-              textInputAction: TextInputAction.newline,
-              maxLength: 150,
-              maxLines: 5,
-              validator: (header) {},
-              onSaved: (header) {},
-            ),
-          ],
-        ),
+      child: Column(
+        children: [
+          SizedBox(height: 20.h),
+          ImageUpdateAvatar(
+            fileImage: viewModel.advertisementImage,
+            updateButtonOnTap: () async => await viewModel.addPetPicture(),
+          ),
+          SizedBox(height: 10.h),
+          selectLocationField(viewModel),
+          selectPetField(viewModel),
+          SizedBox(height: 10.h),
+          formField(viewModel),
+        ],
+      ),
+    );
+  }
+
+  ListTile selectLocationField(CreateAdvertisementViewModel viewModel) {
+    return ListTile(
+      onTap: () async => await viewModel.pushLocationSelectorPage(),
+      leading: CircleAvatar(child: Icon(Icons.location_on)),
+      title: Text(viewModel.adversitementModel.cityName ?? 'Konum Girin'),
+      subtitle: viewModel.adversitementModel.cityName == null ? null : Text(viewModel.adversitementModel.getDistictAndQuarter),
+    );
+  }
+
+  ListTile selectPetField(CreateAdvertisementViewModel viewModel) {
+    return ListTile(
+      leading: CircleAvatar(child: Icon(Icons.pets)),
+      subtitle: DropdownButton<String>(
+        hint: Text('Evcil hayvanınız ne?'),
+        underline: Container(),
+        value: viewModel.selectedPet,
+        items: viewModel.petList.map((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+        onChanged: (value) => viewModel.dropDownOnChanged(value),
+      ),
+    );
+  }
+
+  Form formField(CreateAdvertisementViewModel viewModel) {
+    return Form(
+      key: viewModel.formKey,
+      child: Column(
+        children: [
+          SpecialTextFormField(
+            labelText: 'İlan başlığı',
+            textInputAction: TextInputAction.newline,
+            maxLength: 50,
+            maxLines: 2,
+            validator: (header) => viewModel.headerValidator(header),
+            onSaved: (header) => viewModel.adversitementModel.adversitementHeader = header,
+          ),
+          SpecialTextFormField(
+            labelText: 'İlan açıklaması',
+            textInputAction: TextInputAction.newline,
+            maxLength: 150,
+            maxLines: 5,
+            validator: (explanation) => viewModel.explanationValidator(explanation),
+            onSaved: (explanation) => viewModel.adversitementModel.advertisementExplanation = explanation,
+          ),
+        ],
       ),
     );
   }

@@ -1,4 +1,4 @@
-/* import 'dart:io';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +10,9 @@ class ImagePickerModelSheet {
   static ImagePickerModelSheet instance = ImagePickerModelSheet._init();
   ImagePickerModelSheet._init();
 
-  ImagePicker picker = ImagePicker();
+  ImagePicker _picker = ImagePicker();
 
-  Future<File?> addTeamPhoto(File? profileImage, BuildContext context, int type) async {
+  Future<File?> addPhoto(File? profileImage, BuildContext context, int type) async {
     //0 profile(square),
     //1 normal
     if (Platform.isAndroid) {
@@ -33,7 +33,7 @@ class ImagePickerModelSheet {
                       ),
                       title: Text('Kameradan Çek', style: context.textTheme.subtitle1),
                       onTap: () async {
-                        profileImage = await getCamera(context, type);
+                        profileImage = await _getCamera(context, type);
                       }),
                   ListTile(
                       leading: Icon(
@@ -42,7 +42,7 @@ class ImagePickerModelSheet {
                       ),
                       title: Text('Galeriden Seç', style: context.textTheme.subtitle1),
                       onTap: () async {
-                        profileImage = await getGallery(context, type);
+                        profileImage = await _getGallery(context, type);
                       }),
                   if (profileImage != null) ...[
                     ListTile(
@@ -55,7 +55,7 @@ class ImagePickerModelSheet {
                           style: context.textTheme.subtitle1,
                         ),
                         onTap: () {
-                          profileImage = removeImage(context);
+                          profileImage = _removeImage(context);
                         }),
                   ]
                 ],
@@ -69,20 +69,20 @@ class ImagePickerModelSheet {
           actions: [
             CupertinoActionSheetAction(
               onPressed: () async {
-                profileImage = await getGallery(context, type);
+                profileImage = await _getGallery(context, type);
               },
               child: const Text('Galeriden Seç'),
             ),
             CupertinoActionSheetAction(
               onPressed: () async {
-                profileImage = await getCamera(context, type);
+                profileImage = await _getCamera(context, type);
               },
               child: const Text('Kameradan Çek'),
             ),
             if (profileImage != null) ...[
               CupertinoActionSheetAction(
                 onPressed: () async {
-                  profileImage = removeImage(context);
+                  profileImage = _removeImage(context);
                 },
                 child: const Text(
                   'Profil Fotoğrafını Kaldır',
@@ -97,10 +97,10 @@ class ImagePickerModelSheet {
     return profileImage;
   }
 
-  Future<File?> getCamera(context, type) async {
-    final _picture = await picker.getImage(source: ImageSource.camera, maxWidth: 1500, maxHeight: 1500, imageQuality: 25);
+  Future<File?> _getCamera(context, type) async {
+    final _picture = await _picker.getImage(source: ImageSource.camera, maxWidth: 1500, maxHeight: 1500, imageQuality: 25);
     if (_picture != null) {
-      var profileImage = await cropImage(_picture, type);
+      var profileImage = await _cropImage(_picture, type);
       Navigator.of(context).pop();
       return profileImage;
     }
@@ -109,10 +109,10 @@ class ImagePickerModelSheet {
     return null;
   }
 
-  Future<File?> getGallery(context, type) async {
-    final _picture = await picker.getImage(source: ImageSource.gallery, maxWidth: 1500, maxHeight: 1500, imageQuality: 25);
+  Future<File?> _getGallery(context, type) async {
+    final _picture = await _picker.getImage(source: ImageSource.gallery, maxWidth: 1500, maxHeight: 1500, imageQuality: 25);
     if (_picture != null) {
-      var profileImage = await cropImage(_picture, type);
+      var profileImage = await _cropImage(_picture, type);
       Navigator.of(context).pop();
       return profileImage;
     }
@@ -121,27 +121,25 @@ class ImagePickerModelSheet {
     return null;
   }
 
-  File? removeImage(context) {
+  File? _removeImage(context) {
     Navigator.of(context).pop();
     return null;
   }
 
-  Future<File?> cropImage(PickedFile? pickedFile, int type) async {
+  Future<File?> _cropImage(PickedFile? pickedFile, int type) async {
     File? _picture;
     if (pickedFile == null) return null;
     _picture = await ImageCropper.cropImage(
         sourcePath: pickedFile.path,
         aspectRatioPresets: type == 0
             ? [CropAspectRatioPreset.square]
-            : type == 1
-                ? [CropAspectRatioPreset.square, CropAspectRatioPreset.ratio3x2, CropAspectRatioPreset.ratio16x9, CropAspectRatioPreset.ratio4x3]
-                : [
-                    CropAspectRatioPreset.square,
-                    CropAspectRatioPreset.original,
-                    CropAspectRatioPreset.ratio3x2,
-                    CropAspectRatioPreset.ratio16x9,
-                    CropAspectRatioPreset.ratio4x3
-                  ],
+            : [
+                CropAspectRatioPreset.square,
+                CropAspectRatioPreset.original,
+                CropAspectRatioPreset.ratio3x2,
+                CropAspectRatioPreset.ratio16x9,
+                CropAspectRatioPreset.ratio4x3
+              ],
         androidUiSettings: AndroidUiSettings(
           toolbarTitle: 'Kırp',
           toolbarColor: Colors.deepOrange,
@@ -154,4 +152,3 @@ class ImagePickerModelSheet {
     return _picture;
   }
 }
- */

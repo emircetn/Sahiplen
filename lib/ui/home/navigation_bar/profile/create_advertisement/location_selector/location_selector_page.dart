@@ -7,7 +7,7 @@ import 'package:sahiplen/core/extensions/app_extensions.dart';
 import 'location_selector_view_page.dart';
 
 class LocationSelectorPage extends StatelessWidget {
-  final Function(String)? onCallBack;
+  final Function(String, String, String?)? onCallBack;
 
   LocationSelectorPage({required this.onCallBack});
   @override
@@ -68,7 +68,7 @@ class LocationSelectorPage extends StatelessWidget {
                   child: SpecialButton(
                     isLoading: viewModel.isLoadingLocation,
                     text: 'Devam',
-                    onPressed: () => viewModel.buttonOnPressed,
+                    onPressed: () async => await viewModel.buttonOnPressed(),
                   ),
                 )
               ],
