@@ -20,20 +20,25 @@ class EditProfilePage extends StatelessWidget {
         return WillPopScope(
           onWillPop: () => viewModel.onWillPop(),
           child: Scaffold(
-              appBar: appBar(context),
-              body: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(height: 20.h),
-                    pickImageField(viewModel),
-                    SizedBox(height: 10.h),
-                    formField(viewModel),
-                    saveButton(viewModel),
-                  ],
-                ),
-              )),
+            appBar: appBar(context),
+            body: body(viewModel),
+          ),
         );
       },
+    );
+  }
+
+  SingleChildScrollView body(EditProfileViewModel viewModel) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SizedBox(height: 20.h),
+          pickImageField(viewModel),
+          SizedBox(height: 10.h),
+          formField(viewModel),
+          saveButton(viewModel),
+        ],
+      ),
     );
   }
 

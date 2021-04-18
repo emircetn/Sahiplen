@@ -55,7 +55,7 @@ class EditProfileViewModel extends BaseViewModel {
           formKey.currentState!.save();
           var result = await appRepository.updateUserInformation(tempUser, profileImage);
           if (result) {
-            await navigationService.pushReplacementNamed(RouteConstant.HOME_PAGE_ROUTE, arguments: 2);
+            await navigationService.pushNamedAndRemoveUntil(RouteConstant.HOME_PAGE_ROUTE, arguments: 2);
           } else {
             showToast('Bir hata oluştu');
           }
