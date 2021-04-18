@@ -35,7 +35,7 @@ class NavigationRoute {
       case RouteConstant.CREATE_ADVERTISEMENT_PAGE_ROUTE:
         return CupertinoPageRoute(builder: (_) => CreateAdvertisementPage());
       case RouteConstant.LOCATION_SELECTOR_PAGE_ROUTE:
-        return CupertinoPageRoute(builder: (_) => LocationSelectorPage(onCallBack: settings.arguments as Function(String)?));
+        return CupertinoPageRoute(builder: (_) => LocationSelectorPage(onCallBack: arguments as Function(String)?));
       default:
         return CupertinoPageRoute(
           builder: (_) => Scaffold(

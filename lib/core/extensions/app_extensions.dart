@@ -81,6 +81,25 @@ extension BorderRadiusExtensionAll on BuildContext {
   BorderRadius get borderRadiusHigh => BorderRadius.circular(highValue);
 }
 
+extension BorderRadiusExtensionOnly on BuildContext {
+  BorderRadius get borderRadiusOnlyTopLow => BorderRadius.only(topLeft: Radius.circular(lowValue), topRight: Radius.circular(lowValue));
+  BorderRadius get borderRadiusOnlyTopNormal => BorderRadius.only(topLeft: Radius.circular(normalValue), topRight: Radius.circular(normalValue));
+  BorderRadius get borderRadiusOnlyTopMedium => BorderRadius.only(topLeft: Radius.circular(mediumValue), topRight: Radius.circular(mediumValue));
+  BorderRadius get borderRadiusOnlyTopHigh => BorderRadius.only(topLeft: Radius.circular(highValue), topRight: Radius.circular(highValue));
+
+  BorderRadius get borderRadiusOnlyBottomLow => BorderRadius.only(bottomLeft: Radius.circular(lowValue), bottomRight: Radius.circular(lowValue));
+  BorderRadius get borderRadiusOnlyBottomNormal =>
+      BorderRadius.only(bottomLeft: Radius.circular(normalValue), bottomRight: Radius.circular(normalValue));
+  BorderRadius get borderRadiusOnlyBottomMedium =>
+      BorderRadius.only(bottomLeft: Radius.circular(mediumValue), bottomRight: Radius.circular(mediumValue));
+  BorderRadius get borderRadiusOnlyBottomHigh => BorderRadius.only(bottomLeft: Radius.circular(highValue), bottomRight: Radius.circular(highValue));
+
+  BorderRadius get borderRadiusOnlyLeftLow => BorderRadius.only(topLeft: Radius.circular(lowValue), bottomLeft: Radius.circular(lowValue));
+  BorderRadius get borderRadiusOnlyLeftNormal => BorderRadius.only(topLeft: Radius.circular(normalValue), bottomLeft: Radius.circular(normalValue));
+  BorderRadius get borderRadiusOnlyLeftMedium => BorderRadius.only(topLeft: Radius.circular(mediumValue), bottomLeft: Radius.circular(mediumValue));
+  BorderRadius get borderRadiusOnlyLeftHigh => BorderRadius.only(topLeft: Radius.circular(highValue), bottomLeft: Radius.circular(highValue));
+}
+
 extension ImageExtension on String {
   String get toPNG => '$this.png';
   String get toJSON => '$this.json';
