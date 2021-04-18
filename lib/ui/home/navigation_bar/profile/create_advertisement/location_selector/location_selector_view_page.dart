@@ -116,12 +116,8 @@ class LocationSelectorViewModel extends BaseViewModel {
 
   Future<void> buttonOnPressed() async {
     if ((cityName != null) && (districtName != null) && (quarterName != null || quarterList.isEmpty)) {
-      try {
-        onCallBack!('$districtName, $cityName');
-        Navigator.pop(context);
-      } catch (e) {
-        showToast('Bir hata oluştu, lütfen internet bağlantını kontrol et ve tekrar dene');
-      }
+      onCallBack!('$districtName, $cityName');
+      await navigationService.pop();
     } else {
       showToast('Lütfen gerekli kısımları doldur');
     }

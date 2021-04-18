@@ -19,26 +19,34 @@ class ProfilePage extends StatelessWidget {
       },
       onPageBuilder: (BuildContext context, ProfileViewModel viewModel) {
         return Scaffold(
-          appBar: AppBar(
-            title: Text('Sahiplen', style: context.textTheme.headline6!.copyWith(color: context.theme.primaryColorDark)),
-            centerTitle: true,
-            actions: [
-              IconButton(icon: Icon(Icons.exit_to_app), onPressed: () async => await viewModel.signOut()),
-            ],
-          ),
-          body: SafeArea(
-            child: Container(
-              width: double.maxFinite,
-              child: Column(
-                children: [
-                  headerField(viewModel, context),
-                  items(viewModel),
-                ],
-              ),
-            ),
-          ),
+          appBar: appBar(context, viewModel),
+          body: body(viewModel, context),
         );
       },
+    );
+  }
+
+  AppBar appBar(BuildContext context, ProfileViewModel viewModel) {
+    return AppBar(
+      title: Text('Sahiplen', style: context.textTheme.headline6!.copyWith(color: context.theme.primaryColorDark)),
+      centerTitle: true,
+      actions: [
+        IconButton(icon: Icon(Icons.exit_to_app), onPressed: () async => await viewModel.signOut()),
+      ],
+    );
+  }
+
+  SafeArea body(ProfileViewModel viewModel, BuildContext context) {
+    return SafeArea(
+      child: Container(
+        width: double.maxFinite,
+        child: Column(
+          children: [
+            headerField(viewModel, context),
+            items(viewModel),
+          ],
+        ),
+      ),
     );
   }
 
@@ -71,7 +79,7 @@ class ProfilePage extends StatelessWidget {
             titleText: 'İlan Oluştur',
             subtitleText: 'Ilan oluşturarak evcil hayvanını sahiplecek kişileri bul',
             icon: Icons.create,
-            onTap: () {},
+            onTap: () => viewModel.navigationService.pushNamed(RouteConstant.CREATE_ADVERTISEMENT_PAGE_ROUTE),
           ),
           ProfileListItem(
             titleText: 'İlanların',

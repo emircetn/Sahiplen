@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sahiplen/core/base/view/base_view.dart';
-import 'package:sahiplen/core/extensions/app_extensions.dart';
-
 import 'home_view_model.dart';
 import 'navigation_bar/find_pet/find_pet_page.dart';
 import 'navigation_bar/main/main_page.dart';
