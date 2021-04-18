@@ -7,4 +7,5 @@ class RouteConstant {
   static const String CREATE_ADVERTISEMENT_PAGE_ROUTE = '/createAdvertisement';
   static const String LOCATION_SELECTOR_PAGE_ROUTE = '/locationSelector';
   static const String SHOW_IMAGE_PAGE_ROUTE = '/showImage';
+  static const String USER_ADVERTOSEMENT_PAGE_ROUTE = '/userAdvertisement';
 }

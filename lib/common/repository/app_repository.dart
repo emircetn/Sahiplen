@@ -133,4 +133,8 @@ class AppRepository {
       return null;
     }
   }
+
+  Future<List<AdversitementModel>?>? getUserAdversitement() async {
+    return await _firebaseFirestoreService.getUserAdversitement(appUser!.userID!);
+  }
 }

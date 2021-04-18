@@ -31,10 +31,55 @@ class FirebaseFirestoreService {
 
   Future<bool> publishAdversitement(AdversitementModel adversitementModel) async {
     try {
-      await _firebaseFirestore.collection(' adversitement').doc(adversitementModel.adversitementID).set(adversitementModel.toMap());
+      await _firebaseFirestore.collection('adversitement').doc(adversitementModel.adversitementID).set(adversitementModel.toMap());
       return true;
     } catch (e) {
       return false;
+    }
+  }
+
+  Future<List<AdversitementModel>?>? getUserAdversitement(String userID) async {
+    try {
+      List<AdversitementModel>? adversitementList = [];
+      var querySnapshot = await _firebaseFirestore.collection('adversitement').get();
+      /*       var querySnapshot = await _firebaseFirestore.collection('adversitement').where('userID', isEqualTo: 'userID').get();
+ */
+      for (var documentSnapshot in querySnapshot.docs) {
+        var adversitementModel = AdversitementModel.fromMap(documentSnapshot.data());
+        adversitementList.add(adversitementModel);
+      }
+      return adversitementList;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<AdversitementModel?>? getAdversitement(String adversitementID) async {
+    try {
+      var documentSnapshot = await _firebaseFirestore.collection('adversitement').doc(adversitementID).get();
+      if (documentSnapshot.data() != null) {
+        var adversitementModel = AdversitementModel.fromMap(documentSnapshot.data()!);
+        adversitementModel.user = await getUser(adversitementModel.userID!);
+        return adversitementModel;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<AppUser?> getUser(String userID) async {
+    try {
+      var documentSnapshot = await _firebaseFirestore.collection('users').doc(userID).get();
+      if (documentSnapshot.data() != null) {
+        return AppUser.fromMap(documentSnapshot.data()!);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
     }
   }
 }

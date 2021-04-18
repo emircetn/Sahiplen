@@ -10,6 +10,7 @@ import 'package:sahiplen/ui/home/home_page.dart';
 import 'package:sahiplen/ui/home/navigation_bar/profile/create_advertisement/create_advertisement_page.dart';
 import 'package:sahiplen/ui/home/navigation_bar/profile/create_advertisement/location_selector/location_selector_page.dart';
 import 'package:sahiplen/ui/home/navigation_bar/profile/edit_profile/edit_profile.dart';
+import 'package:sahiplen/ui/home/navigation_bar/profile/user_advertisement/user_advertisement.dart';
 import 'package:sahiplen/ui/home/other/show_image_page.dart';
 
 class NavigationRoute {
@@ -32,7 +33,6 @@ class NavigationRoute {
         return CupertinoPageRoute(builder: (_) => RegisterPage());
       case RouteConstant.HOME_PAGE_ROUTE:
         return CupertinoPageRoute(builder: (_) => HomePage());
-
       case RouteConstant.EDIT_PROFILE_PAGE_ROUTE:
         return CupertinoPageRoute(builder: (_) => EditProfilePage());
       case RouteConstant.CREATE_ADVERTISEMENT_PAGE_ROUTE:
@@ -45,6 +45,8 @@ class NavigationRoute {
             builder: (_) => settings.arguments is String
                 ? ShowImagePage(networkImageUrl: settings.arguments as String)
                 : ShowImagePage(fileImage: settings.arguments as File));
+      case RouteConstant.USER_ADVERTOSEMENT_PAGE_ROUTE:
+        return CupertinoPageRoute(builder: (_) => UserAdvertisementPage());
       default:
         return CupertinoPageRoute(
           builder: (_) => Scaffold(

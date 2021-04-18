@@ -1,3 +1,5 @@
+import 'package:sahiplen/common/model/app_user.dart';
+
 class AdversitementModel {
   String? adversitementID;
   String? userID;
@@ -8,6 +10,7 @@ class AdversitementModel {
   String? cityName;
   String? districtName;
   String? quarterName;
+  AppUser? user;
   AdversitementModel({
     this.adversitementID,
     this.userID,
