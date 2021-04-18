@@ -137,4 +137,20 @@ class AppRepository {
   Future<List<AdversitementModel>?>? getUserAdversitement() async {
     return await _firebaseFirestoreService.getUserAdversitement(appUser!.userID!);
   }
+
+  Future<bool> updateUserInformation(AppUser tempUser, File? profileImage) async {
+    if (profileImage != null) {
+      var result = await _firebaseStrogeService.uploadProfilePhotoToDatabase(appUser!.userID!, profileImage);
+      if (result == null) {
+        return false;
+      } else {
+        tempUser.profileUrl = result;
+      }
+    }
+    var result = await _firebaseFirestoreService.updateUserInformation(tempUser);
+    if (result) {
+      appUser = tempUser;
+    }
+    return result;
+  }
 }

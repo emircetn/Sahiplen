@@ -32,7 +32,7 @@ class NavigationRoute {
       case RouteConstant.REGISTER_PAGE_ROUTE:
         return CupertinoPageRoute(builder: (_) => RegisterPage());
       case RouteConstant.HOME_PAGE_ROUTE:
-        return CupertinoPageRoute(builder: (_) => HomePage());
+        return CupertinoPageRoute(builder: (_) => HomePage(page: arguments as int?));
       case RouteConstant.EDIT_PROFILE_PAGE_ROUTE:
         return CupertinoPageRoute(builder: (_) => EditProfilePage());
       case RouteConstant.CREATE_ADVERTISEMENT_PAGE_ROUTE:

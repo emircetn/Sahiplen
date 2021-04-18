@@ -15,7 +15,7 @@ class SpecialTextFormField extends StatelessWidget {
   final Widget? prefix;
   final Widget? suffix;
   final String? errorText;
-  final List<TextInputFormatter>? inputFormatters;
+  final String? initialValue;
   final int maxLines;
   final int? maxLength;
 
@@ -23,7 +23,7 @@ class SpecialTextFormField extends StatelessWidget {
     Key? key,
     required this.labelText,
     required this.validator,
-    required this.onSaved,
+    this.onSaved,
     this.saveAttempted = false,
     this.maxLines = 1,
     this.maxLength,
@@ -35,7 +35,7 @@ class SpecialTextFormField extends StatelessWidget {
     this.prefix,
     this.errorText,
     this.suffix,
-    this.inputFormatters,
+    this.initialValue,
   }) : super(key: key);
 
   @override
@@ -43,14 +43,14 @@ class SpecialTextFormField extends StatelessWidget {
     return Padding(
       padding: context.paddingNormal,
       child: TextFormField(
-        autovalidateMode: saveAttempted! ? AutovalidateMode.always : AutovalidateMode.disabled,
+        autovalidateMode: saveAttempted! ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
         textInputAction: textInputAction,
         keyboardType: keyboardType,
         obscureText: obscureText!,
-        inputFormatters: inputFormatters,
         maxLines: maxLines,
         maxLength: maxLength,
         minLines: 1,
+        initialValue: initialValue,
         decoration: InputDecoration(
           prefix: prefix,
           suffix: suffix,

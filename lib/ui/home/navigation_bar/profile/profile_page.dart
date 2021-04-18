@@ -41,11 +41,13 @@ class ProfilePage extends StatelessWidget {
     return SafeArea(
       child: Container(
         width: double.maxFinite,
-        child: Column(
-          children: [
-            headerField(viewModel, context),
-            items(viewModel),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              headerField(viewModel, context),
+              items(viewModel),
+            ],
+          ),
         ),
       ),
     );
@@ -66,30 +68,28 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  SingleChildScrollView items(ProfileViewModel viewModel) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          ProfileListItem(
-            titleText: 'Profili Güncelle',
-            subtitleText: 'Bilgilerini güncelle',
-            icon: Icons.person,
-            onTap: () async => await viewModel.navigationService.pushNamed(RouteConstant.EDIT_PROFILE_PAGE_ROUTE),
-          ),
-          ProfileListItem(
-            titleText: 'İlan Oluştur',
-            subtitleText: 'Ilan oluşturarak evcil hayvanını sahiplecek kişileri bul',
-            icon: Icons.create,
-            onTap: () async => await viewModel.navigationService.pushNamed(RouteConstant.CREATE_ADVERTISEMENT_PAGE_ROUTE),
-          ),
-          ProfileListItem(
-            titleText: 'İlanların',
-            subtitleText: 'Ilanlarını görüntüle',
-            icon: Icons.featured_play_list,
-            onTap: () async => await viewModel.navigationService.pushNamed(RouteConstant.USER_ADVERTOSEMENT_PAGE_ROUTE),
-          ),
-        ],
-      ),
+  Column items(ProfileViewModel viewModel) {
+    return Column(
+      children: [
+        ProfileListItem(
+          titleText: 'Profili Güncelle',
+          subtitleText: 'Bilgilerini güncelle',
+          icon: Icons.person,
+          onTap: () async => await viewModel.navigationService.pushNamed(RouteConstant.EDIT_PROFILE_PAGE_ROUTE),
+        ),
+        ProfileListItem(
+          titleText: 'İlan Oluştur',
+          subtitleText: 'Ilan oluşturarak evcil hayvanını sahiplecek kişileri bul',
+          icon: Icons.create,
+          onTap: () async => await viewModel.navigationService.pushNamed(RouteConstant.CREATE_ADVERTISEMENT_PAGE_ROUTE),
+        ),
+        ProfileListItem(
+          titleText: 'İlanların',
+          subtitleText: 'Ilanlarını görüntüle',
+          icon: Icons.featured_play_list,
+          onTap: () async => await viewModel.navigationService.pushNamed(RouteConstant.USER_ADVERTOSEMENT_PAGE_ROUTE),
+        ),
+      ],
     );
   }
 }

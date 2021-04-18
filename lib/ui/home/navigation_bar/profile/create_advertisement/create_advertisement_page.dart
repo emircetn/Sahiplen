@@ -27,7 +27,7 @@ class CreateAdvertisementPage extends StatelessWidget {
 
   AppBar appBar(BuildContext context) {
     return AppBar(
-      title: Text('İlan oluşturun', style: context.textTheme.headline6),
+      title: Text('İlan oluştur', style: context.textTheme.headline6),
       centerTitle: true,
     );
   }
@@ -49,12 +49,19 @@ class CreateAdvertisementPage extends StatelessWidget {
     );
   }
 
+  ImageUpdateAvatar pickImageField(CreateAdvertisementViewModel viewModel) {
+    return ImageUpdateAvatar(
+      fileImage: viewModel.advertisementImage,
+      updateButtonOnTap: () async => await viewModel.addPetPicture(),
+    );
+  }
+
   ListTile selectLocationField(CreateAdvertisementViewModel viewModel) {
     return ListTile(
       onTap: () async => await viewModel.pushLocationSelectorPage(),
       leading: CircleAvatar(child: Icon(Icons.location_on)),
       title: Text(
-        viewModel.adversitementModel.cityName ?? 'Konum Girin',
+        viewModel.adversitementModel.cityName ?? 'Konum Gir',
       ),
       subtitle: viewModel.adversitementModel.cityName == null ? null : Text(viewModel.adversitementModel.getDistictAndQuarter),
     );
@@ -64,7 +71,7 @@ class CreateAdvertisementPage extends StatelessWidget {
     return ListTile(
       leading: CircleAvatar(child: Icon(Icons.pets)),
       subtitle: DropdownButton<String>(
-        hint: Text('Evcil hayvanınız ne?'),
+        hint: Text('Evcil hayvanın ne?'),
         underline: Container(),
         value: viewModel.selectedPet,
         items: viewModel.appConstants.petList.map((String value) {
@@ -86,7 +93,7 @@ class CreateAdvertisementPage extends StatelessWidget {
           SpecialTextFormField(
             labelText: 'İlan başlığı',
             textInputAction: TextInputAction.newline,
-            maxLength: 50,
+            saveAttempted: true,
             maxLines: 2,
             validator: (header) => viewModel.headerValidator(header),
             onSaved: (header) => viewModel.adversitementModel.adversitementHeader = header,
@@ -94,20 +101,13 @@ class CreateAdvertisementPage extends StatelessWidget {
           SpecialTextFormField(
             labelText: 'İlan açıklaması',
             textInputAction: TextInputAction.newline,
-            maxLength: 150,
+            saveAttempted: true,
             maxLines: 5,
             validator: (explanation) => viewModel.explanationValidator(explanation),
             onSaved: (explanation) => viewModel.adversitementModel.advertisementExplanation = explanation,
           ),
         ],
       ),
-    );
-  }
-
-  ImageUpdateAvatar pickImageField(CreateAdvertisementViewModel viewModel) {
-    return ImageUpdateAvatar(
-      fileImage: viewModel.advertisementImage,
-      updateButtonOnTap: () async => await viewModel.addPetPicture(),
     );
   }
 

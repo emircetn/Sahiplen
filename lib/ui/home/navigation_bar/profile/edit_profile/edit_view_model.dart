@@ -1,17 +1,23 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:sahiplen/common/model/app_user.dart';
 import 'package:sahiplen/core/base/modelview/base_view_model.dart';
+import 'package:sahiplen/core/components/widgets/picker/image_picker_modal_sheet.dart';
+import 'package:sahiplen/core/constants/router_constants.dart';
 
 class EditProfileViewModel extends BaseViewModel {
   late AppUser tempUser;
+  late GlobalKey<FormState> formKey;
+
   File? profileImage;
   DateTime? currentBackPressTime;
 
   @override
   void init() {
     tempUser = appUser!.clone();
+    formKey = GlobalKey<FormState>();
   }
 
   @override
@@ -31,6 +37,32 @@ class EditProfileViewModel extends BaseViewModel {
       }
 
       return true;
+    }
+  }
+
+  Future<void> selectProfilePicture() async {
+    profileImage = await ImagePickerModelSheet.instance.addPhoto(profileImage, context, 1);
+    setState();
+  }
+
+  Future<void> updateUserInformation() async {
+    try {
+      isLoadingSet = true;
+      if (tempUser.isEqual(appUser) && profileImage == null) {
+        showToast('Herhangi bir değişiklik yapmadın');
+      } else {
+        if (formKey.currentState!.validate()) {
+          formKey.currentState!.save();
+          var result = await appRepository.updateUserInformation(tempUser, profileImage);
+          if (result) {
+            await navigationService.pushReplacementNamed(RouteConstant.HOME_PAGE_ROUTE, arguments: 2);
+          } else {
+            showToast('Bir hata oluştu');
+          }
+        }
+      }
+    } finally {
+      isLoadingSet = false;
     }
   }
 }

@@ -6,10 +6,12 @@ import 'navigation_bar/main/main_page.dart';
 import 'navigation_bar/profile/profile_page.dart';
 
 class HomePage extends StatelessWidget {
+  final int? page;
+  const HomePage({this.page});
   @override
   Widget build(BuildContext context) {
     return BaseView<HomeViewModel>(
-      viewModel: HomeViewModel(),
+      viewModel: HomeViewModel(page),
       onModelReady: (model) {
         model.setContext(context);
         model.init();
@@ -42,7 +44,7 @@ class HomePage extends StatelessWidget {
         BottomNavigationBarItem(icon: Icon(Icons.pets), label: 'Keşfet'),
         BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: 'Profil'),
       ],
-      currentIndex: viewModel.page,
+      currentIndex: viewModel.page!,
       onTap: (index) => viewModel.updateNavbarIndex(index),
     );
   }

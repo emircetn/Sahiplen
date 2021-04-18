@@ -31,7 +31,7 @@ class FirebaseFirestoreService {
 
   Future<bool> publishAdversitement(AdversitementModel adversitementModel) async {
     try {
-      await _firebaseFirestore.collection('adversitement').doc(adversitementModel.adversitementID).set(adversitementModel.toMap());
+      await _firebaseFirestore.collection('adversitements').doc(adversitementModel.adversitementID).set(adversitementModel.toMap());
       return true;
     } catch (e) {
       return false;
@@ -41,9 +41,8 @@ class FirebaseFirestoreService {
   Future<List<AdversitementModel>?>? getUserAdversitement(String userID) async {
     try {
       List<AdversitementModel>? adversitementList = [];
-      var querySnapshot = await _firebaseFirestore.collection('adversitement').get();
-      /*       var querySnapshot = await _firebaseFirestore.collection('adversitement').where('userID', isEqualTo: 'userID').get();
- */
+      var querySnapshot = await _firebaseFirestore.collection('adversitements').where('userID', isEqualTo: userID).get();
+
       for (var documentSnapshot in querySnapshot.docs) {
         var adversitementModel = AdversitementModel.fromMap(documentSnapshot.data());
         adversitementList.add(adversitementModel);
@@ -57,7 +56,7 @@ class FirebaseFirestoreService {
 
   Future<AdversitementModel?>? getAdversitement(String adversitementID) async {
     try {
-      var documentSnapshot = await _firebaseFirestore.collection('adversitement').doc(adversitementID).get();
+      var documentSnapshot = await _firebaseFirestore.collection('adversitements').doc(adversitementID).get();
       if (documentSnapshot.data() != null) {
         var adversitementModel = AdversitementModel.fromMap(documentSnapshot.data()!);
         adversitementModel.user = await getUser(adversitementModel.userID!);
@@ -80,6 +79,15 @@ class FirebaseFirestoreService {
       }
     } catch (e) {
       return null;
+    }
+  }
+
+  Future<bool> updateUserInformation(AppUser tempUser) async {
+    try {
+      await _firebaseFirestore.collection('users').doc(tempUser.userID).update(tempUser.toMap());
+      return true;
+    } catch (e) {
+      return false;
     }
   }
 }

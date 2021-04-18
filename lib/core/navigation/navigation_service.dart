@@ -20,6 +20,10 @@ class NavigationService {
     await navigatorKey.currentState!.pushNamedAndRemoveUntil(path, removeOldRoutes, arguments: arguments);
   }
 
+  Future<void> pushReplacementNamed(String path, {Object? arguments}) async {
+    await navigatorKey.currentState!.pushReplacementNamed(path, arguments: arguments);
+  }
+
   Future<void> pop() async {
     navigatorKey.currentState!.pop();
   }
