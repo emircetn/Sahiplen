@@ -10,7 +10,7 @@ class ImagePickerModelSheet {
   static ImagePickerModelSheet instance = ImagePickerModelSheet._init();
   ImagePickerModelSheet._init();
 
-  ImagePicker _picker = ImagePicker();
+  final ImagePicker _picker = ImagePicker();
 
   Future<File?> addPhoto(File? profileImage, BuildContext context, int type) async {
     //0 profile(square),

@@ -1,5 +1,6 @@
 import 'package:sahiplen/common/model/app_user.dart';
 import 'package:sahiplen/common/repository/app_repository.dart';
+import 'package:sahiplen/core/constants/app_constants.dart';
 import 'package:sahiplen/core/navigation/navigation_service.dart';
 
 import '../../../get_it.dart';
@@ -14,6 +15,8 @@ abstract class BaseViewModel extends ChangeNotifier {
 
   final AppRepository appRepository = getIt<AppRepository>();
   final AssetContants assetContants = AssetContants.instance;
+  final AppConstants appConstants = AppConstants.instance;
+
   final NavigationService navigationService = NavigationService.instance;
 
   set isLoadingSet(bool value) {

@@ -20,9 +20,12 @@ class FirebaseStrogeService {
     }
   }
 
-  Future<String?> uploadAdvertisementPhotoToDatabase(String advertisementID, File advertisementImage, int photoNumber) async {
+  Future<String?> uploadAdvertisementPhotoToDatabase(
+    String advertisementID,
+    File advertisementImage,
+  ) async {
     try {
-      var _storageReference = _firebaseStorage.ref().child('advertisement').child(advertisementID).child('advertisement$photoNumber.png');
+      var _storageReference = _firebaseStorage.ref().child('advertisement').child(advertisementID).child('advertisement.png');
       await _storageReference.putFile(advertisementImage);
       var url = await _storageReference.getDownloadURL();
       return url;

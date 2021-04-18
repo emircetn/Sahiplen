@@ -6,4 +6,6 @@ class AppConstants {
   }
 
   AppConstants._init();
+
+  List<String> petList = ['Kedi', 'Köpek', 'Muhabbet Kuşu', 'Papağan', 'Hamster'];
 }

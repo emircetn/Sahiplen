@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sahiplen/core/base/view/base_view.dart';
+import 'package:sahiplen/core/components/button/special_button.dart';
 import 'package:sahiplen/core/components/textformfield/special_text_form_field.dart';
 import 'package:sahiplen/core/components/widgets/avatar/image_update_avatar.dart';
-import 'package:sahiplen/core/constants/router_constants.dart';
 import 'package:sahiplen/core/extensions/app_extensions.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'create_advertisement_view_model.dart';
@@ -37,15 +37,13 @@ class CreateAdvertisementPage extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(height: 20.h),
-          ImageUpdateAvatar(
-            fileImage: viewModel.advertisementImage,
-            updateButtonOnTap: () async => await viewModel.addPetPicture(),
-          ),
+          pickImageField(viewModel),
           SizedBox(height: 10.h),
           selectLocationField(viewModel),
           selectPetField(viewModel),
           SizedBox(height: 10.h),
           formField(viewModel),
+          publishButton(viewModel),
         ],
       ),
     );
@@ -55,7 +53,9 @@ class CreateAdvertisementPage extends StatelessWidget {
     return ListTile(
       onTap: () async => await viewModel.pushLocationSelectorPage(),
       leading: CircleAvatar(child: Icon(Icons.location_on)),
-      title: Text(viewModel.adversitementModel.cityName ?? 'Konum Girin'),
+      title: Text(
+        viewModel.adversitementModel.cityName ?? 'Konum Girin',
+      ),
       subtitle: viewModel.adversitementModel.cityName == null ? null : Text(viewModel.adversitementModel.getDistictAndQuarter),
     );
   }
@@ -67,7 +67,7 @@ class CreateAdvertisementPage extends StatelessWidget {
         hint: Text('Evcil hayvanınız ne?'),
         underline: Container(),
         value: viewModel.selectedPet,
-        items: viewModel.petList.map((String value) {
+        items: viewModel.appConstants.petList.map((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: Text(value),
@@ -101,6 +101,21 @@ class CreateAdvertisementPage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  ImageUpdateAvatar pickImageField(CreateAdvertisementViewModel viewModel) {
+    return ImageUpdateAvatar(
+      fileImage: viewModel.advertisementImage,
+      updateButtonOnTap: () async => await viewModel.addPetPicture(),
+    );
+  }
+
+  SpecialButton publishButton(CreateAdvertisementViewModel viewModel) {
+    return SpecialButton(
+      isLoading: viewModel.isLoading,
+      text: 'İlanı Yayınla',
+      onPressed: () async => await viewModel.publishAdversitement(),
     );
   }
 }

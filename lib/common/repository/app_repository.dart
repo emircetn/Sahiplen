@@ -5,6 +5,7 @@ import 'package:sahiplen/common/services/firebase_auth_service.dart';
 import 'package:sahiplen/common/services/firebase_firestore_service.dart';
 import 'package:sahiplen/common/services/firebase_stroge_service.dart';
 import 'package:sahiplen/get_it.dart';
+import 'package:sahiplen/ui/home/navigation_bar/profile/create_advertisement/adversitement_model.dart';
 
 class AppRepository {
   final FirebaseAuthService _firebaseAuthService = getIt<FirebaseAuthService>();
@@ -71,8 +72,22 @@ class AppRepository {
     return await _firebaseStrogeService.uploadProfilePhotoToDatabase(userID, photoFile);
   }
 
-  Future<String?> uploadAdvertisementPhotoToDatabase(String advertisementID, File advertisementImage, int photoNumber) async {
-    return await _firebaseStrogeService.uploadAdvertisementPhotoToDatabase(advertisementID, advertisementImage, photoNumber);
+  Future<String?> uploadAdvertisementPhotoToDatabase(String advertisementID, File advertisementImage) async {
+    return await _firebaseStrogeService.uploadAdvertisementPhotoToDatabase(advertisementID, advertisementImage);
+  }
+
+  //////////////////////////////////////////////////////////////////////
+
+  Future<bool> publishAdversitement(AdversitementModel adversitementModel, File advertisementImage) async {
+    adversitementModel.adversitementID = DateTime.now().toLocal().millisecondsSinceEpoch.toString();
+
+    var profileUrl = await uploadAdvertisementPhotoToDatabase(adversitementModel.adversitementID!, advertisementImage);
+    if (profileUrl != null) {
+      adversitementModel.profileUrl = profileUrl;
+      return await _firebaseFirestoreService.publishAdversitement(adversitementModel);
+    } else {
+      return false;
+    }
   }
 
   //////////////////////////validator///////////////////////////////////

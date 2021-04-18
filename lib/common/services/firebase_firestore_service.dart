@@ -1,5 +1,6 @@
 import 'package:sahiplen/common/model/app_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sahiplen/ui/home/navigation_bar/profile/create_advertisement/adversitement_model.dart';
 
 class FirebaseFirestoreService {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
@@ -22,6 +23,15 @@ class FirebaseFirestoreService {
   Future<bool> saveUserToDatabase(AppUser appUser) async {
     try {
       await _firebaseFirestore.collection(userCollection).doc(appUser.userID).set(appUser.toMap());
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> publishAdversitement(AdversitementModel adversitementModel) async {
+    try {
+      await _firebaseFirestore.collection(' adversitement').doc(adversitementModel.adversitementID).set(adversitementModel.toMap());
       return true;
     } catch (e) {
       return false;

@@ -19,6 +19,7 @@ class ProfilePage extends StatelessWidget {
       },
       onPageBuilder: (BuildContext context, ProfileViewModel viewModel) {
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: appBar(context, viewModel),
           body: body(viewModel, context),
         );
