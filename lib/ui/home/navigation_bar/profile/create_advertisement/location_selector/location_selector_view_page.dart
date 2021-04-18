@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sahiplen/core/base/modelview/base_view_model.dart';
+import 'package:sahiplen/core/extensions/app_extensions.dart';
 
 class LocationSelectorViewModel extends BaseViewModel {
   late List<String> cityList, districtList;
@@ -33,7 +34,8 @@ class LocationSelectorViewModel extends BaseViewModel {
   Future<void> getCity() async {
     if (cityList.isEmpty) {
       cityList.clear();
-      var citys = await rootBundle.loadString('assets/text/location_turkey.json');
+      var citys = await rootBundle.loadString(assetContants.textPath + 'location_turkey'.toJSON);
+
       cityMapList = json.decode(citys);
       cityMapList!.forEach((city, list) {
         cityList.add(city);

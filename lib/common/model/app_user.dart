@@ -2,14 +2,12 @@ class AppUser {
   String? userID;
   String? email;
   String? displayName;
-  String? city;
   String? profileUrl;
 
   AppUser({
     this.userID,
     this.email,
     this.displayName,
-    this.city,
     this.profileUrl,
   });
 
@@ -20,7 +18,6 @@ class AppUser {
       'userID': userID,
       'email': email,
       'displayName': displayName,
-      'city': city,
       'profileUrl': profileUrl,
     };
   }
@@ -29,11 +26,32 @@ class AppUser {
     userID = map['userID'];
     email = map['email'];
     displayName = map['displayName'];
-    city = map['city'];
     profileUrl = map['profileUrl'];
   }
-}
 
-extension AppUserExtension on String {
-  String get nameAndSurnameFirstCharacter => '£{}';
+  AppUser clone() => copyWith(
+        userID: userID,
+        email: email,
+        displayName: displayName,
+        profileUrl: profileUrl,
+      );
+
+  AppUser copyWith({
+    String? userID,
+    String? email,
+    String? displayName,
+    String? profileUrl,
+  }) {
+    return AppUser(
+      userID: userID ?? this.userID,
+      email: email ?? this.email,
+      displayName: displayName ?? this.displayName,
+      profileUrl: profileUrl ?? this.profileUrl,
+    );
+  }
+
+  bool isEqual(AppUser? other) {
+    if (identical(this, other)) return true;
+    return other is AppUser && other.userID == userID && other.email == email && other.displayName == displayName && other.profileUrl == profileUrl;
+  }
 }

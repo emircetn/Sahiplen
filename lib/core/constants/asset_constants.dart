@@ -9,8 +9,5 @@ class AssetContants {
 
   final imagePath = 'assets/images/';
   final iconPath = 'assets/icons/';
-}
-
-extension ImageExtension on String {
-  String get toPNG => '$this.png';
+  final textPath = 'assets/texts/';
 }

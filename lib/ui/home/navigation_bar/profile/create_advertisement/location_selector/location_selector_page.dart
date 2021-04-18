@@ -9,7 +9,7 @@ import 'location_selector_view_page.dart';
 class LocationSelectorPage extends StatelessWidget {
   final Function(String)? onCallBack;
 
-  LocationSelectorPage(this.onCallBack);
+  LocationSelectorPage({required this.onCallBack});
   @override
   Widget build(BuildContext context) {
     return BaseView<LocationSelectorViewModel>(

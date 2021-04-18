@@ -5,6 +5,9 @@ import 'package:sahiplen/ui/auth/landing/landing_page.dart';
 import 'package:sahiplen/ui/auth/login/login_page.dart';
 import 'package:sahiplen/ui/auth/register/register_page.dart';
 import 'package:sahiplen/ui/home/home_page.dart';
+import 'package:sahiplen/ui/home/navigation_bar/profile/create_advertisement/create_advertisement_page.dart';
+import 'package:sahiplen/ui/home/navigation_bar/profile/create_advertisement/location_selector/location_selector_page.dart';
+import 'package:sahiplen/ui/home/navigation_bar/profile/edit_profile/edit_profile.dart';
 
 class NavigationRoute {
   static NavigationRoute? _instace;
@@ -26,6 +29,13 @@ class NavigationRoute {
         return CupertinoPageRoute(builder: (_) => RegisterPage());
       case RouteConstant.HOME_PAGE_ROUTE:
         return CupertinoPageRoute(builder: (_) => HomePage());
+
+      case RouteConstant.EDIT_PROFILE_PAGE_ROUTE:
+        return CupertinoPageRoute(builder: (_) => EditProfilePage());
+      case RouteConstant.CREATE_ADVERTISEMENT_PAGE_ROUTE:
+        return CupertinoPageRoute(builder: (_) => CreateAdvertisementPage());
+      case RouteConstant.LOCATION_SELECTOR_PAGE_ROUTE:
+        return CupertinoPageRoute(builder: (_) => LocationSelectorPage(onCallBack: settings.arguments as Function(String)?));
       default:
         return CupertinoPageRoute(
           builder: (_) => Scaffold(

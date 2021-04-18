@@ -1,8 +1,8 @@
 import 'package:sahiplen/common/model/app_user.dart';
 import 'package:sahiplen/common/repository/app_repository.dart';
+import 'package:sahiplen/core/navigation/navigation_service.dart';
 
 import '../../../get_it.dart';
-import '../../router/router_service.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../constants/asset_constants.dart';

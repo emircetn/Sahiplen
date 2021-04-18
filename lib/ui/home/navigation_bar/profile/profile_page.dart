@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sahiplen/core/components/widgets/avatar/profile_avatar.dart';
 import 'package:sahiplen/core/components/widgets/item/profile_list_item.dart';
+import 'package:sahiplen/core/constants/router_constants.dart';
 import 'package:sahiplen/core/extensions/app_extensions.dart';
 import 'package:sahiplen/core/base/view/base_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,7 +32,7 @@ class ProfilePage extends StatelessWidget {
               child: Column(
                 children: [
                   headerField(viewModel, context),
-                  items(),
+                  items(viewModel),
                 ],
               ),
             ),
@@ -51,17 +52,12 @@ class ProfilePage extends StatelessWidget {
           viewModel.appUser!.displayName!.toUpperCase(),
           style: context.textTheme.headline6,
         ),
-        SizedBox(height: 5.h),
-        Text(
-          viewModel.appUser!.city ?? 'Konum Bilinmiyor',
-          style: context.textTheme.overline,
-        ),
         SizedBox(height: 20.h),
       ],
     );
   }
 
-  SingleChildScrollView items() {
+  SingleChildScrollView items(ProfileViewModel viewModel) {
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -69,7 +65,7 @@ class ProfilePage extends StatelessWidget {
             titleText: 'Profili Güncelle',
             subtitleText: 'Bilgilerini güncelle',
             icon: Icons.person,
-            onTap: () {},
+            onTap: () => viewModel.navigationService.pushNamed(RouteConstant.EDIT_PROFILE_PAGE_ROUTE),
           ),
           ProfileListItem(
             titleText: 'İlan Oluştur',

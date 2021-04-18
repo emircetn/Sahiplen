@@ -80,3 +80,8 @@ extension BorderRadiusExtensionAll on BuildContext {
   BorderRadius get borderRadiusMediumHigh => BorderRadius.circular(mediumHighValue);
   BorderRadius get borderRadiusHigh => BorderRadius.circular(highValue);
 }
+
+extension ImageExtension on String {
+  String get toPNG => '$this.png';
+  String get toJSON => '$this.json';
+}
