@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sahiplen/core/extensions/app_extensions.dart';
 import 'package:sahiplen/core/base/view/base_view.dart';
 
 import 'edit_view_model.dart';
